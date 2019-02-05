@@ -67,3 +67,15 @@ select sample_date as cur_date,
                          and interval '1' day preceding
               ) as load_day1_before
   from LoadSample;
+
+select sample_date as cur_date,
+       min(sample_date)
+         over (order by sample_date asc
+               rows between 1 preceding and 1 preceding) as latest_1,
+       min(sample_date)
+         over (order by sample_date asc
+               rows between 2 preceding and 2 preceding) as latest_2,
+       min(sample_date)
+         over (order by sample_date asc
+               rows between 3 preceding and 3 preceding) as latest_3
+  from LoadSample;
