@@ -94,3 +94,22 @@ select EMP.employee, Children.child
 from Personnel EMP
 left outer join Children
 on Children.child in (EMP.child_1, EMP.child_2, EMP.child_3);
+
+
+select MASTER.age_class as age_class,
+       MASTER.sex_cd as sex_cd,
+       DATA.pop_tohoku as pop_tohoku,
+       DATA.pop_kanto as pop_kanto
+from (select age_class, sex_cd
+      from TblAge cross join TblSex) MASTER
+  left outer join
+    (select age_class, sex_cd,
+      sum(case when pref_name in ('青森', '秋田')
+               then population else null end) as pop_tohoku,
+      sum(case when pref_name in ('東京', '千葉')
+               then population else null end) as pop_kanto
+     from TblPop
+     group by age_class, sex_cd) DATA
+     on MASTER.age_class = DATA.age_class
+     and MASTER.sex_cd = DATA.sex_cd;
+
