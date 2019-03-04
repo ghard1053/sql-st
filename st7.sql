@@ -113,3 +113,15 @@ from (select age_class, sex_cd
      on MASTER.age_class = DATA.age_class
      and MASTER.sex_cd = DATA.sex_cd;
 
+select I.item_no, SH.total_qty
+from Items I
+  left outer join
+    (select item_no, SUM(quantity) as total_qty
+     from SalesHistory
+     group by item_no) SH
+  on I.item_no = SH.item_no;
+
+select I.item_no, sum(SH.quantity) as total_qty
+from Items I left outer join SalesHistory SH
+on I.item_no = SH.item_no
+group by I.item_no
