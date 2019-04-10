@@ -44,3 +44,22 @@ SELECT COALESCE(NULL, 1) AS col_1,
 
 SELECT COALESCE(str2, 'is NULL')
 FROM SampleStr;
+
+-- EXISTS(相関サブクエリ)
+SELECT shohin_name, hanbai_price
+FROM Shohin AS S
+WHERE EXISTS (
+  SELECT *
+  FROM TenpoShohin AS TS
+  WHERE TS.tenpo_id = '000C'
+  AND TS.shohin_id = S.shohin_id
+);
+
+SELECT shohin_name, hanbai_price
+FROM Shohin AS S
+WHERE NOT EXISTS (
+  SELECT *
+  FROM TempoShohin AS TS
+  WHERE TS.tenpo_id = '000A'
+  AND TS.shohin_id = S.shohin_id
+);
