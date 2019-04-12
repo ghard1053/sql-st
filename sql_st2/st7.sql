@@ -10,3 +10,7 @@ FROM Shohin2:
 -- INTERSECT 共通部分の選択
 
 -- EXCEPT 差
+
+-- INNER JOIN
+
+-- OUTER JOIN
