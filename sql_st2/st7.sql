@@ -14,3 +14,5 @@ FROM Shohin2:
 -- INNER JOIN
 
 -- OUTER JOIN
+
+-- CROSS JOIN
